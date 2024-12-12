@@ -41,6 +41,7 @@ class ContactMessage(models.Model):
     def __str__(self):
         return f"{self.name} - {self.subject}"
 
+""""
 class Service(models.Model):
     service_title = models.CharField(max_length=150, default="Default Service Title")  # Default title
     image = models.ImageField(upload_to='media/images')  # Default image path
@@ -49,7 +50,7 @@ class Service(models.Model):
     def __str__(self):
         return self.service_title
 
-
+"""
 class Video(models.Model):
     video_file = models.FileField(upload_to='videos/') # Upload path for videos
     title = models.CharField(max_length=100)

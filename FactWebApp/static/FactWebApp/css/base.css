@@ -1,11 +1,16 @@
+/* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-body {
+html, body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
+    height: 100%; /* Ensure the body takes the full height of the viewport */
+    display: flex;
+    flex-direction: column; /* Use flexbox with a column layout */
 }
 
+/* Navigation Bar */
 nav {
     display: flex;
     justify-content: space-evenly;
@@ -46,20 +51,26 @@ nav {
     color: blue;
 }
 
+/* Main Content */
+body > *:not(nav) {
+    margin-top: 60px; /* Push content below the fixed nav bar */
+    flex: 1; /* Makes content take up the remaining height, pushing the footer to the bottom */
+}
+
+/* Footer */
 footer {
     display: flex;
     align-items: center;
     background-color: rgb(14, 14, 48);
-    color:white;
-    padding: 10px;
-    padding-bottom: 0px;
+    color: white;
+    padding: 5px;
     justify-content: space-evenly;
-    height: auto;
+    height: 10px;
+    margin: 0;
 }
-cls
+
 .footer-left p {
     color: white;
-    align-items: end;
 }
 
 .footer-right {

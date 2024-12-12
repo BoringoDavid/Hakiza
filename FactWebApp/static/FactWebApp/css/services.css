@@ -5,6 +5,7 @@ h1{
 .description{
     padding: 20px;
 }
+/*
 .services-container {
     display: flex;
     justify-content: space-between;
@@ -19,7 +20,7 @@ h1{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 0;
 }
-
+*/
 .service h2 {
     margin-top: 0;
     font-weight: normal;
@@ -43,3 +44,34 @@ h1{
     font-family:sans-serif;
 }
 
+
+.services-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates 3 equal-width columns */
+    gap: 20px; /* Adds space between the grid items */
+    padding: 20px; /* Adds padding around the container */
+}
+
+.service {
+    background-color: #f4f4f4; /* Background color for each service item */
+    padding: 20px; /* Padding inside each service box */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow around each service */
+}
+
+.service h2 {
+    font-size: 1.5rem; /* Adjust the font size for the heading */
+    margin-bottom: 10px; /* Space below the heading */
+}
+
+.service p {
+    font-size: 1rem; /* Adjust the font size for the paragraph */
+    color: #333; /* Darker text color for better readability */
+}
+
+/* For smaller screen sizes, make it 1 column */
+@media (max-width: 768px) {
+    .services-container {
+        grid-template-columns: 1fr; /* 1 column for small screens */
+    }
+}

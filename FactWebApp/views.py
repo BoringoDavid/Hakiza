@@ -16,9 +16,9 @@ def about(request):
     return render(request, 'FactWebApp/about.html', {'mission_images': mission_images, 'approach_images': approach_images})
 
 def services(request):
-    home_category = ImageCategory.objects.get(name='home') 
-    images = Image.objects.filter(category=home_category)
-    return render(request, 'FactWebApp/services.html')
+    service_category=ImageCategory.objects.get(name='service')
+    service_image=Image.objects.filter(category=service_category)
+    return render(request, 'FactWebApp/services.html', {'service_image':service_image})
 
 def contact(request):
     return render(request, 'FactWebApp/contact.html')
