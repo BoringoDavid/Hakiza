@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Our Clients - PLACIDE HAKIZIMANA WEB
+{% endblock %}
+
+{% block content %}
+
+<div class="research-container">
+    <h1>Design Labs</h1>
+    <div class="research-grid">
+        {% for lab_image in lab_images %}
+        <div class="research-item">
+            <img src="{{ lab_image.image.url }}" alt="{{ lab_image.title }}">
+            <h3>{{ lab_image.title }}</h3>
+            <p>{{ lab_image.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="research-container">
+    <h1>Studies</h1>
+    <div class="research-grid">
+        {% for study_image in study_images %}
+        <div class="research-item">
+            <img src="{{ study_image.image.url }}" alt="{{ study_image.title }}">
+            <h3>{{ study_image.title }}</h3>
+            <p>{{ study_image.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="research-container">
+    <h1>Tools</h1>
+    <div class="research-grid">
+        {% for tool_image in tool_images %}
+        <div class="research-item">
+            <img src="{{ tool_image.image.url }}" alt="{{ tool_image.title }}">
+            <h3>{{ tool_image.title }}</h3>
+            <p>{{ tool_image.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="research-container">
+    <h1>Training</h1>
+    <div class="research-grid">
+        {% for training_image in training_images %}
+        <div class="research-item">
+            <img src="{{ training_image.image.url }}" alt="{{ training_image.title }}">
+            <h3>{{ training_image.title }}</h3>
+            <p>{{ training_image.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extrastyles %}
+<link rel="stylesheet" type="text/css" href="{% static 'FactWebApp/css/research.css' %}">
+{% endblock %}
+

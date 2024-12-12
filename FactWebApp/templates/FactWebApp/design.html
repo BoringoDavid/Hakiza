@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Design - PLACIDE HAKIZIMANA WEB
+{% endblock %}
+
+{% block content %}
+<div class="design-container">
+    <h1>Here are some of our designs</h1>
+    <div class="filter-options">
+        <div  data-category="{{ design_image.category }}">
+            <img src="{{ design_image.image.url }}" alt="{{ design_image.description }}">
+            <h3>{{ design_image.title }}</h3>
+            <p>{{ design_image.location }}</p>
+        </div>
+    </div>
+    <div class="design-grid">
+        {% for design_image in design_images %}
+        <div class="design-item" data-category="{{ design_image.category }}">
+            <img src="{{ design_image.image.url }}" alt="{{ design_image.description }}">
+            <h3>{{ design_image.title }}</h3>
+            <p>{{ design_image.location }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extrastyles %}
+<link rel="stylesheet" type="text/css" href="{% static 'FactWebApp/css/design.css' %}">
+{% endblock %}
+
+{% block extrascripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const designTypeSelect = document.getElementById("design-type");
+        const designItems = document.querySelectorAll(".design-item");
+
+        designTypeSelect.addEventListener("change", function() {
+            const selectedCategory = this.value;
+            designItems.forEach(function(item) {
+                const itemCategory = item.dataset.category;
+                if (selectedCategory === "all" || selectedCategory === itemCategory) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        });
+    });
+
+    // section for added JavaScripts
+    document.addEventListener("DOMContentLoaded", function () {
+        const designGrid = document.querySelector(".design-grid");
+
+        // Adding smooth scroll functionality
+        designGrid.addEventListener("wheel", function (e) {
+            e.preventDefault();
+            designGrid.scrollLeft += e.deltaY;
+        });
+    });
+
+
+</script>
+{% endblock %}
