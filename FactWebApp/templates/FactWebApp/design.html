@@ -3,25 +3,50 @@
 {% load static %}
 
 {% block title %}
-Design - PLACIDE HAKIZIMANA WEB
+Design - FACT WEB
 {% endblock %}
 
 {% block content %}
 <div class="design-container">
     <h1>Here are some of our designs</h1>
-    <div class="filter-options">
-        <div  data-category="{{ design_image.category }}">
-            <img src="{{ design_image.image.url }}" alt="{{ design_image.description }}">
-            <h3>{{ design_image.title }}</h3>
-            <p>{{ design_image.location }}</p>
-        </div>
+
+    <!-- Dropdown for filtering design subcategories -->
+    <div class="filter-container">
+        <label for="design-type">Filter by Category:</label>
+        <select id="design-type">
+            <option value="all">All</option>
+            {% for subcategory in design_subcategories %}
+            <option value="{{ subcategory }}">{{ subcategory|title }}</option>
+            {% endfor %}
+        </select>
     </div>
+
+    <!-- Render designs -->
     <div class="design-grid">
         {% for design_image in design_images %}
-        <div class="design-item" data-category="{{ design_image.category }}">
-            <img src="{{ design_image.image.url }}" alt="{{ design_image.description }}">
-            <h3>{{ design_image.title }}</h3>
-            <p>{{ design_image.location }}</p>
+        <div class="design-item" data-category="{{ design_image.subcategory }}">
+            <!-- Left Section -->
+            <div class="design-left">
+                <h3>{{ design_image.title }}</h3>
+                <p>{{ design_image.posted_date }}</p>
+            </div>
+
+            <!-- Center Section -->
+            <div class="design-center">
+                <img 
+                    src="{{ design_image.image.url }}" 
+                    alt="{{ design_image.description }}" 
+                    data-description="{{ design_image.description }}" 
+                    data-magazine-type="{{ design_image.magazine_type }}" 
+                    class="design-image"
+                >
+            </div>
+
+            <!-- Right Section (hidden by default) -->
+            <div class="design-right hidden">
+                <p id="description">{{ design_image.location }}</p>
+                <p id="magazine-type">{{ design_image.description }}</p>
+            </div>
         </div>
         {% endfor %}
     </div>
@@ -30,38 +55,5 @@ Design - PLACIDE HAKIZIMANA WEB
 
 {% block extrastyles %}
 <link rel="stylesheet" type="text/css" href="{% static 'FactWebApp/css/design.css' %}">
-{% endblock %}
-
-{% block extrascripts %}
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const designTypeSelect = document.getElementById("design-type");
-        const designItems = document.querySelectorAll(".design-item");
-
-        designTypeSelect.addEventListener("change", function() {
-            const selectedCategory = this.value;
-            designItems.forEach(function(item) {
-                const itemCategory = item.dataset.category;
-                if (selectedCategory === "all" || selectedCategory === itemCategory) {
-                    item.style.display = "block";
-                } else {
-                    item.style.display = "none";
-                }
-            });
-        });
-    });
-
-    // section for added JavaScripts
-    document.addEventListener("DOMContentLoaded", function () {
-        const designGrid = document.querySelector(".design-grid");
-
-        // Adding smooth scroll functionality
-        designGrid.addEventListener("wheel", function (e) {
-            e.preventDefault();
-            designGrid.scrollLeft += e.deltaY;
-        });
-    });
-
-
-</script>
+<script src="{% static 'FactWebApp/JS/design.js' %}" defer></script>
 {% endblock %}

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.shortcuts import render
 from .models import *
 def index(request):
     home_category = ImageCategory.objects.get(name='home')  # Assuming 'home' is the name of the home category
@@ -16,12 +17,19 @@ def about(request):
     return render(request, 'FactWebApp/about.html', {'mission_images': mission_images, 'approach_images': approach_images})
 
 def services(request):
-    service_category=ImageCategory.objects.get(name='service')
-    service_image=Image.objects.filter(category=service_category)
-    return render(request, 'FactWebApp/services.html', {'service_image':service_image})
+    service_category = ImageCategory.objects.get(name='service')  # Assuming 'service' is the name of the service category
+    service_images = Image.objects.filter(category=service_category)
+    context = {
+        'service_images': service_images  # Pass the images to the template
+    }
+
+    return render(request, 'FactWebApp/services.html', context)
 
 def contact(request):
-    return render(request, 'FactWebApp/contact.html')
+    contact_category = ImageCategory.objects.get(name='contact')  # Assuming 'design' is the name of the design category
+    contact_images = Image.objects.filter(category=contact_category)
+
+    return render(request, 'FactWebApp/contact.html',{'contact_images':contact_images})
 
 def save_contact_message(request):
     if request.method == 'POST':
@@ -36,23 +44,27 @@ def save_contact_message(request):
     elif request.method == 'GET':
         # Return a JSON response indicating that GET requests are not allowed
         return JsonResponse({'success': False, 'message': 'GET requests are not allowed.'})
-
+"""
 def team(request):
-    return render(request, 'FactWebApp/team.html')
-
+    return render(request, 'FactWebApp/checkout.html')
+"""
 def news(request):
-    #return render(request, 'FactWebApp/news.html')
     news_category = ImageCategory.objects.get(name='news')  # Assuming 'design' is the name of the design category
     news_images = Image.objects.filter(category=news_category)
     return render(request, 'FactWebApp/news.html', {'news_images': news_images})
 
-from django.shortcuts import render
-from .models import Image, ImageCategory
 
 def design(request):
-    design_category = ImageCategory.objects.get(name='design')  # Assuming 'design' is the name of the design category
+    design_category = ImageCategory.objects.get(name='design')  # Main category
     design_images = Image.objects.filter(category=design_category)
-    return render(request, 'FactWebApp/design.html', {'design_images': design_images})
+
+    # Extract distinct subcategories for dropdown
+    design_subcategories = design_images.values_list('subcategory', flat=True).distinct()
+
+    return render(request, 'FactWebApp/design.html', {
+        'design_images': design_images,
+        'design_subcategories': design_subcategories
+    })
 
 def video(request):
     videos = Video.objects.all()  # Fetch all videos from the database
@@ -66,11 +78,10 @@ def careers(request):
         team_images = Image.objects.filter(category=team_category)
         board_images = Image.objects.filter(category=board_category)
     except ImageCategory.DoesNotExist:
-        # Handle the case where the 'Team' or 'Board' category does not exist
         team_images = []
         board_images = []
     
-    return render(request, 'FactWebApp/careers.html', {'team_images': team_images, 'board_images': board_images})
+    return render(request, 'FactWebApp/team.html', {'team_images': team_images, 'board_images': board_images})
 
 def research(request):
     lab_images = Image.objects.filter(category__name='lab')
@@ -81,6 +92,8 @@ def research(request):
         'lab_images': lab_images,
         'study_images': study_images,
         'tool_images': tool_images,
-        'training_images': training_images,
+        'training_images': training_images
     }
     )
+def career_page_view(request):
+    return render(request, 'FactWebApp/careerspage.html')

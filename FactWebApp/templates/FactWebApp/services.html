@@ -3,31 +3,35 @@
 {% load static %}
 
 {% block title %}
-Services - PLACIDE HAKIZIMANA WEB
+Services - FACT WEB
 {% endblock %}
 
 {% block content %}
 
-    <div class="description">
+<div class="description">
     <h1>What we provide to our clients</h1>
-    <p>Presso ....., offriamo una gamma completa di servizi per soddisfare tutte le 
-        vostre esigenze architettoniche e di costruzione. Dalle soluzioni innovative di 
-        progettazione architettonica alla gestione esperta della costruzione e consulenza per il design sostenibile, il nostro team è impegnato a offrire eccellenza in ogni progetto. Con un focus su creatività, funzionalità e sostenibilità, ci sforziamo di superare le aspettative dei nostri clienti e creare spazi che ispirano, durano e arricchiscono la vita.</p>
-
-                
+    <p>
+        At FACT, we offer a comprehensive range of services to meet all your architectural and construction needs. 
+        From innovative architectural design solutions to expert construction management and sustainable design consulting, 
+        our team is dedicated to delivering excellence in every project. With a focus on creativity, functionality, and sustainability, 
+        we strive to exceed our clients' expectations and create spaces that inspire, endure, and enrich lives.
+    </p>
 </div>
 
-            <div class="services-container">
-                {% for service_image in service_images %}
-                <div class="service" data-category="{{ service_image.category }}">
-                    <img src="{{ service_image.image.url }}" alt="{{service_image.description }}">
-                    <p>{{ service_image.description}}</p>
-                    <p>{{ service_image.description}}</p>
-                    <p>{{ service_image.posted_date|date:"Y-m-d" }}</p>
-                </div>
-                {% endfor %}
-            </div>
-    <div class="reference-service"><a href="#">see some of our completed projects</a></div>
+<div class="services-container">
+    {% for service_image in service_images %}
+    <div class="service" data-category="{{ service_image.category }}">
+        <img src="{{ service_image.image.url }}" alt="{{ service_image.description }}">
+        <h3>{{ service_image.service_title }}</h3>
+        <p>{{ service_image.service_Description}}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="reference-service">
+    <a href="{% url 'design' %}">See some of our completed projects</a>
+</div>
+
 {% endblock %}
 
 {% block extrastyles %}
